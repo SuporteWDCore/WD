@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WD Core — No núcleo da inovação</title>
+  <meta name="description" content="WD Core — Eletrônicos & Acessórios. Manutenção de celular, películas, capinhas, caixas de som e câmeras." />
+
+  <!-- Tech Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0f14;             /* fundo deep */
+      --panel:#0f1520;          /* painéis */
+      --panel-2:#0b1320;        /* variação */
+      --text:#e6eef8;           /* texto principal */
+      --muted:#9fb3c8;          /* texto secundário */
+      --brand:#00e0ff;          /* ciano neon */
+      --brand-2:#8a2be2;        /* roxo elétrico */
+      --ok:#18c29c;
+      --warn:#ffcf5a;
+      --err:#ff6670;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35), 0 0 40px rgba(0,224,255,.06);
+    }
+
+    * { box-sizing:border-box }
+    html,body { height:100% }
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 120% -20%, rgba(138,43,226,.25), transparent 60%),
+        radial-gradient(900px 500px at -10% 10%, rgba(0,224,255,.18), transparent 50%),
+        linear-gradient(180deg, #0a0f14 0%, #070a0e 100%);
+      background-attachment: fixed;
+    }
+
+footer.site {
+  background: linear-gradient(90deg, #0d0d0d, #1a1a1a);
+  color: #fff;
+  padding: 15px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+}
+
+.footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  color: #00d1ff;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #00ffaa;
+}
+	
+    /* Top Bar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(8px);
+      background:linear-gradient(180deg, rgba(10,14,20,.82), rgba(10,14,20,.58));
+      border-bottom:1px solid rgba(0,224,255,.15);
+    }
+    .container{ max-width:1200px; margin:0 auto; padding:0 16px }
+    .row{ display:flex; gap:16px; align-items:center; }
+
+    .brand{ display:flex; align-items:center; gap:10px; padding:12px 0 }
+    .brand .logo{
+      width:46px; height:46px; border-radius:12px; flex:0 0 auto;
+      background:
+        conic-gradient(from 210deg, var(--brand), var(--brand-2), var(--brand));
+      box-shadow:0 0 0 2px rgba(0,224,255,.25), inset 0 0 30px rgba(0,224,255,.35);
+    }
+    .brand .name{ font-family:Orbitron, monospace; letter-spacing:.6px; font-weight:800; font-size:18px }
+    .brand .tag{ font-size:12px; color:var(--muted); margin-top:-4px }
+
+    nav{ display:flex; align-items:center; gap:8px; flex-wrap:wrap }
+    .nav-btn{
+      border:1px solid rgba(0,224,255,.18);
+      background:linear-gradient(180deg, rgba(15,21,32,.9), rgba(11,19,32,.7));
+      color:var(--text);
+      padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600;
+      transition: all .2s ease; letter-spacing:.2px;
+    }
+    .nav-btn[aria-current="page"], .nav-btn:hover{
+      border-color:rgba(0,224,255,.45);
+      box-shadow:0 0 0 2px rgba(0,224,255,.2), inset 0 0 30px rgba(0,224,255,.12);
+    }
+
+    .spacer{ flex:1 }
+
+    .search{ position:relative; max-width:390px; flex:1 }
+    .search input{
+      width:100%; padding:12px 40px 12px 14px; border-radius:12px;
+      border:1px solid rgba(0,224,255,.2);
+      background:linear-gradient(180deg, rgba(15,21,32,.8), rgba(11,19,32,.6));
+      color:var(--text);
+      outline:none; box-shadow: var(--shadow);
+    }
+    .search .icon{ position:absolute; right:10px; top:50%; transform:translateY(-50%); opacity:.7 }
+
+    .cart-btn{ position:relative }
+    .cart-btn .count{
+      position:absolute; top:-6px; right:-6px; background:var(--brand-2); color:#fff;
+      border-radius:999px; font-size:12px; padding:2px 6px; border:1px solid rgba(255,255,255,.2);
+    }
+
+    /* Hero */
+    .hero{ padding:32px 0 18px }
+    .hero-card{
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(13,19,30,.85), rgba(6,10,16,.85));
+      border:1px solid rgba(0,224,255,.18);
+      box-shadow: var(--shadow);
+      padding:22px; display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+    }
+    .hero h1{ font-family:Orbitron; margin:0; font-size:clamp(22px, 4vw, 34px) }
+    .hero p{ margin:6px 0 0; color:var(--muted) }
+    .hero .badge{
+      margin-left:auto; font-size:12px; padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(0,224,255,.25);
+      background:linear-gradient(180deg, rgba(15,21,32,.9), rgba(11,19,32,.7));
+    }
+
+    /* Tabs/Sections */
+    .tabs { display:flex; gap:8px; flex-wrap:wrap; padding:8px 0 0 }
+    .tab { font-size:12px; opacity:.9 }
+
+    /* Product grid */
+    .grid{ display:grid; grid-template-columns:repeat(12, 1fr); gap:16px; }
+    .product{
+      grid-column: span 12;
+      background:linear-gradient(180deg, rgba(15,21,32,.9), rgba(11,19,32,.7));
+      border:1px solid rgba(0,224,255,.16);
+      border-radius:18px; overflow:hidden; box-shadow: var(--shadow);
+      display:flex; flex-direction:column;
+    }
+    @media(min-width:600px){ .product{ grid-column: span 6 } }
+    @media(min-width:900px){ .product{ grid-column: span 4 } }
+
+    .product .img{ aspect-ratio: 16/10; background:linear-gradient(120deg, rgba(0,224,255,.2), rgba(138,43,226,.15)); display:flex; align-items:center; justify-content:center; font-weight:800; font-family:Orbitron; letter-spacing:1px; }
+    .product .body{ padding:14px }
+    .product h3{ margin:0 0 6px; font-size:18px }
+    .product p{ margin:0; color:var(--muted); font-size:14px; min-height:42px }
+    .price-row{ display:flex; align-items:center; gap:10px; margin-top:12px }
+    .price{ font-weight:800; font-size:18px; font-family:Orbitron }
+    .pill{ font-size:11px; padding:6px 8px; border-radius:999px; border:1px solid rgba(0,224,255,.2); }
+    .actions{ display:flex; gap:8px; margin-top:14px }
+    .btn{ flex:1; padding:10px 12px; border-radius:12px; cursor:pointer; font-weight:700; border:1px solid rgba(0,224,255,.2); background:linear-gradient(180deg, rgba(17,27,42,.9), rgba(11,19,32,.75)); color:var(--text) }
+    .btn:hover{ border-color:rgba(0,224,255,.45) }
+
+    /* Cart Drawer */
+    .drawer{
+      position:fixed; right:0; top:0; width:min(420px, 100%); height:100%; background:linear-gradient(180deg, rgba(13,19,30,.98), rgba(6,10,16,.98));
+      border-left:1px solid rgba(0,224,255,.25);
+      transform:translateX(100%); transition: transform .28s ease; z-index:60; display:flex; flex-direction:column;
+    }
+    .drawer.open{ transform:translateX(0) }
+    .drawer header{ padding:16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid rgba(0,224,255,.2) }
+    .drawer header h2{ margin:0; font-family:Orbitron; font-size:18px }
+    .drawer .content{ flex:1; overflow:auto; padding:12px 16px; display:flex; flex-direction:column; gap:12px }
+    .drawer .empty{ color:var(--muted); text-align:center; margin-top:20% }
+    .cart-item{ display:grid; grid-template-columns: 1fr auto; gap:8px; padding:12px; border:1px solid rgba(0,224,255,.15); border-radius:14px; background:linear-gradient(180deg, rgba(18,28,45,.9), rgba(11,19,32,.8)); }
+    .cart-item .title{ font-weight:700 }
+    .qty-row{ display:flex; gap:8px; align-items:center; justify-content:flex-end }
+    .icon-btn{ width:30px; height:30px; border-radius:10px; border:1px solid rgba(0,224,255,.25); background:transparent; color:var(--text); cursor:pointer }
+    .drawer footer{ border-top:1px solid rgba(0,224,255,.2); padding:14px 16px; display:grid; gap:12px }
+    .summary{ display:flex; align-items:center; justify-content:space-between; font-weight:800 }
+    .checkout{ padding:12px; border-radius:12px; border:1px solid rgba(0,224,255,.35); background:linear-gradient(180deg, rgba(0,224,255,.14), rgba(138,43,226,.14)); font-weight:800; cursor:pointer }
+
+/* Footer */
+    footer.site{ background:linear-gradient(90deg, #0d0d0d, #1a1a1a); color:#fff; padding:20px; font-family:'Segoe UI',sans-serif; position:relative; box-shadow:0 -2px 10px rgba(0,0,0,0.4); }
+    .footer-bar{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .footer-link{ color:var(--brand); font-weight:bold; text-decoration:none; transition: color 0.3s ease; margin-left:10px; }
+    .footer-link:hover{ color:#00ffaa; }
+    .social-icons a{ margin-left:12px; color:var(--brand); font-size:20px; transition:0.3s; }
+    .social-icons a:hover{ color:#00ffaa; }
+  </style>
+</head>
+<body>
+  <!-- Topbar / Nav -->
+  <div class="topbar" role="banner">
+    <div class="container">
+      <div class="row" role="navigation" aria-label="Menu principal">
+        <div class="brand" aria-label="WD Core">
+
+<div class="logo" style="width: 70px; height: 70px; display: flex; justify-content: center;">
+            <img src="logo.png" alt="WD Core Logo" style="width: 100%; height: 100%; object-fit: contain;" />
+        </div>
+          <div>
+            <div class="name">WD Core</div>
+            <div class="tag">No núcleo da inovação</div>
+          </div>
+        </div>
+
+        <nav id="mainNav" aria-label="Navegação de sessões (mesma URL)">
+          <button class="nav-btn" data-view="home" aria-current="page">Página Principal</button>
+          <button class="nav-btn" data-view="smartphones">Smartphones</button>
+          <button class="nav-btn" data-view="acessorios">Acessórios</button>
+          <button class="nav-btn" data-view="assistencia">Assistência Técnica</button>
+          <button class="nav-btn" data-view="audio">Áudio</button>
+	  <button class="nav-btn" data-view="contato">Fale Conosco</button>
+          <button class="nav-btn" data-view="sobre">Quem Somos Nós</button>        
+</nav>
+
+        <div class="spacer"></div>
+
+        <div class="search" role="search">
+          <label for="q" class="sr-only" style="position:absolute;left:-9999px">Buscar produtos</label>
+          <input id="q" type="search" placeholder="Buscar produtos... (Ex: capinha, película, fone)" />
+          <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+
+        <button id="openCart" class="nav-btn cart-btn" aria-haspopup="dialog" aria-controls="cartDrawer" aria-label="Abrir carrinho">
+          🛒 Carrinho <span class="count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero / Intro -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div>
+          <h1>O Núcleo da inovação com DNA Tech </h1>
+          <p>Temos os melhores produtos! Nós somos simplesmente a <strong>WD Core</strong>.</p>
+          <div class="tabs" aria-label="Filtros rápidos">
+            <button class="nav-btn tab" data-filter-tag="promo">Promoções</button>
+            <button class="nav-btn tab" data-filter-tag="novo">Lançamentos</button>
+            <button class="nav-btn tab" data-filter-tag="popular">Mais vendidos</button>
+          </div>
+        </div>
+        <!--- <div class="badge">Mesma </div> ---->
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <main class="container" id="app" aria-live="polite"></main>
+
+  <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Carrinho de compras">
+    <header>
+      <h2>Carrinho</h2>
+      <div class="spacer"></div>
+      <button class="icon-btn" id="closeCart" aria-label="Fechar carrinho">✕</button>
+    </header>
+    <div class="content" id="cartItems">
+      <div class="empty">Seu carrinho está vazio. Que tal adicionar algo? 😉</div>
+    </div>
+    <footer>
+      <div class="summary"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
+      <button class="checkout" id="checkoutBtn">Finalizar compra</button>
+    </footer>
+  </aside>
+
+<section id="contato" style="padding:40px 0;">
+  <div class="container">
+    <h2>Fale Conosco</h2>
+    <p>Entre em contato com a equipe WD Core. Preencha o formulário abaixo ou utilize os canais disponíveis.</p>
+    <form id="contactForm" style="display:flex; flex-direction:column; gap:12px; max-width:500px;">
+      <input type="text" placeholder="Nome" required style="padding:10px; border-radius:8px; border:1px solid #00e0ff; background:var(--panel); color:var(--text);">
+      <input type="email" placeholder="Email" required style="padding:10px; border-radius:8px; border:1px solid #00e0ff; background:var(--panel); color:var(--text);">
+      <textarea placeholder="Mensagem" required style="padding:10px; border-radius:8px; border:1px solid #00e0ff; background:var(--panel); color:var(--text);" rows="6"></textarea>
+      <button type="submit" class="btn" style="background:var(--brand); color:#000; font-weight:800;">Enviar Mensagem</button>
+    </form>
+    <div style="margin-top:20px;">
+      <p>Email: <a href="mailto:suporte@wdcore.com.br">suporte@wdcore.com.br</a></p>
+      <p>Instagram: <a href="https://instagram.com/wd_core" target="_blank">@wd_core</a></p>
+      <p>Telefone: (11) 96146-9627 </p>
+    </div>
+  </div>
+</section>
+
+
+<footer class="site">
+  <div class="footer-bar">
+    <span>© <span id="year"></span> WD Core — Eletrônicos & Acessórios.</span>
+    <div class="social-icons">
+      <a href="mailto:suporte@wdcore.com.br" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.instagram.com/wd_core/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+    <a class="footer-link" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Voltar ao topo</a>
+  </div>
+</footer>
+
+
+
+  <script>
+    // ---------------------------
+    // Dados de produtos (mock)
+    // ---------------------------
+    const PRODUCTS = [
+      { id: 'p1', title: 'Capinha Antichoque WD', price: 49.9, desc: 'Proteção reforçada para vários modelos.', category:'acessorios', tags:['popular'], badge:'Novo' },
+      { id: 'p2', title: 'Película 9H Pro', price: 39.9, desc: 'Ultra resistência e toque suave.', category:'acessorios', tags:['promo','popular'] },
+      { id: 'p3', title: 'Fone Bluetooth X1', price: 199.9, desc: 'Som imersivo e bateria de longa duração.', category:'audio', tags:['popular'] },
+      { id: 'p4', title: 'Caixa de Som Thunder', price: 349.9, desc: 'Potência e graves com LED dinâmico.', category:'audio', tags:['novo'] },
+      { id: 'p5', title: 'Câmera Action 4K', price: 799.9, desc: 'Grave aventuras em 4K com estabilização.', category:'assistencia', tags:['novo'] },
+      { id: 'p6', title: 'Troca de Tela (Serviço)', price: 299.9, desc: 'Assistência técnica especializada WD Core.', category:'assistencia', tags:['promo'] },
+      { id: 'p7', title: 'Smartphone WD One 128GB', price: 1499.9, desc: 'Desempenho e câmera para o dia a dia.', category:'smartphones', tags:['popular'] },
+      { id: 'p8', title: 'Carregador Turbo 30W', price: 119.9, desc: 'Carga rápida e segura com certificação.', category:'acessorios', tags:['novo'] },
+    ];
+
+    // ---------------------------
+    // Estado SPA (uma URL)
+    // ---------------------------
+    const state = {
+      view: 'home',       // home | smartphones | acessorios | assistencia | audio
+      q: '',              // busca
+      filterTag: null,    // promo | novo | popular
+      cart: JSON.parse(localStorage.getItem('wdcore_cart') || '[]'),
+    };
+
+    const formatPrice = n => n.toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+
+    // ---------------------------
+    // Renderização
+    // ---------------------------
+    const app = document.getElementById('app');
+    function render(){
+      const { view, q, filterTag } = state;
+      let items = PRODUCTS.slice();
+
+      if(view !== 'home') items = items.filter(p => p.category === view);
+      if(filterTag) items = items.filter(p => p.tags.includes(filterTag));
+      if(q){
+        const s = q.trim().toLowerCase();
+        items = items.filter(p => (p.title+p.desc).toLowerCase().includes(s));
+      }
+
+      app.innerHTML = `
+        <div class="grid" role="list">
+          ${items.map(p => `
+            <article class="product" role="listitem">
+              <div class="img">${p.title.split(' ')[0]}</div>
+              <div class="body">
+                <h3>${p.title}</h3>
+                <p>${p.desc}</p>
+                <div class="price-row">
+                  <div class="price">${formatPrice(p.price)}</div>
+                  ${p.badge ? `<span class="pill">${p.badge}</span>` : ''}
+                </div>
+                <div class="actions">
+                  <button class="btn" data-add="${p.id}">Adicionar ao carrinho</button>
+                  <button class="btn" data-buy="${p.id}">Comprar agora</button>
+                </div>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      `;
+
+      document.querySelectorAll('[data-add]').forEach(b => b.addEventListener('click', () => addToCart(b.dataset.add)) );
+      document.querySelectorAll('[data-buy]').forEach(b => b.addEventListener('click', () => { addToCart(b.dataset.buy); openCart(); }) );
+
+      // Atualiza estado visual do menu
+      document.querySelectorAll('nav .nav-btn').forEach(btn => {
+        btn.setAttribute('aria-current', btn.dataset.view === view ? 'page' : 'false');
+      });
+    }
+
+    // ---------------------------
+    // Navegação (mesma URL)
+    // ---------------------------
+    document.getElementById('mainNav').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-view]');
+      if(!btn) return;
+      state.view = btn.dataset.view;
+      state.filterTag = null;
+      render();
+    });
+
+    // Filtros rápidos
+    document.querySelectorAll('.tab[data-filter-tag]').forEach(tab => tab.addEventListener('click', () => {
+      state.filterTag = tab.dataset.filterTag;
+      render();
+    }));
+
+    // Busca
+    const q = document.getElementById('q');
+    q.addEventListener('input', () => { state.q = q.value; render(); });
+
+    // ---------------------------
+    // Carrinho
+    // ---------------------------
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartCountEl = document.getElementById('cartCount');
+    const cartTotalEl = document.getElementById('cartTotal');
+
+    function persistCart(){ localStorage.setItem('wdcore_cart', JSON.stringify(state.cart)); }
+
+    function addToCart(id){
+      const item = PRODUCTS.find(p => p.id === id);
+      if(!item) return;
+      const existing = state.cart.find(c => c.id === id);
+      if(existing){ existing.qty += 1; }
+      else { state.cart.push({ ...item, qty: 1 }); }
+      updateCartUI();
+    }
+
+    function removeFromCart(id){
+      state.cart = state.cart.filter(c => c.id !== id);
+      updateCartUI();
+    }
+
+    function inc(id){ const c = state.cart.find(i => i.id === id); if(c){ c.qty++; updateCartUI(); } }
+    function dec(id){ const c = state.cart.find(i => i.id === id); if(c){ c.qty = Math.max(1, c.qty-1); updateCartUI(); } }
+
+    function updateCartUI(){
+      const total = state.cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+      cartCountEl.textContent = state.cart.reduce((sum, i) => sum + i.qty, 0);
+      cartTotalEl.textContent = formatPrice(total);
+
+      if(state.cart.length === 0){
+        cartItemsEl.innerHTML = '<div class="empty">Seu carrinho está vazio. Que tal adicionar algo? 😉</div>';
+      } else {
+        cartItemsEl.innerHTML = state.cart.map(i => `
+          <div class="cart-item">
+            <div>
+              <div class="title">${i.title}</div>
+              <div class="muted">${formatPrice(i.price)} • ${i.desc}</div>
+            </div>
+            <div class="qty-row">
+              <button class="icon-btn" aria-label="Diminuir" data-dec="${i.id}">−</button>
+              <div aria-label="Quantidade" style="min-width:24px;text-align:center">${i.qty}</div>
+              <button class="icon-btn" aria-label="Aumentar" data-inc="${i.id}">+</button>
+              <button class="icon-btn" aria-label="Remover" data-del="${i.id}">🗑</button>
+            </div>
+          </div>
+        `).join('');
+        cartItemsEl.querySelectorAll('[data-dec]').forEach(b => b.addEventListener('click', () => dec(b.dataset.dec)));
+        cartItemsEl.querySelectorAll('[data-inc]').forEach(b => b.addEventListener('click', () => inc(b.dataset.inc)));
+        cartItemsEl.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => removeFromCart(b.dataset.del)));
+      }
+      persistCart();
+    }
+
+    function openCart(){ cartDrawer.classList.add('open'); document.getElementById('openCart').setAttribute('aria-expanded', 'true'); }
+    function closeCart(){ cartDrawer.classList.remove('open'); document.getElementById('openCart').setAttribute('aria-expanded', 'false'); }
+
+    document.getElementById('openCart').addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCart);
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+      alert('Simulação de checkout — aqui você pode integrar com um gateway de pagamento (ex: Pix, Mercado Pago, etc.)');
+    });
+
+    // Inicialização
+    document.getElementById('year').textContent = new Date().getFullYear();
+    updateCartUI();
+    render();
+  </script>
+</body>
+</html>
